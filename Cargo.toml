@@ -1,0 +1,8 @@
+[package]
+name = "google-maps-services"
+version = "0.0.1"
+authors = ["Vignesh Sankaran <developer@ferndrop.com>"]
+description = "Google Maps Web Services API bindings library for Rust"
+
+[dependencies]
+hyper = "0.10.*"
