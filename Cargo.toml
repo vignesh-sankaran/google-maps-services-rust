@@ -1,11 +1,16 @@
 [package]
-name = "google-maps-services"
+name = "google_maps_services"
 version = "0.0.1"
 authors = ["Vignesh Sankaran <developer@ferndrop.com>"]
 description = "Google Maps Web Services API bindings library for Rust"
+
+[dev-dependencies]
+dotenv = "0.8.*"
 
 [dependencies]
 hyper = "0.10.*"
 serde = "0.9.*"
 serde_derive = "0.9.*"
+serde_json = "0.9.*"
 serde_urlencoded = "0.4.*"
+time = "0.1.*"

@@ -4,4 +4,5 @@ use serde_derive;
 pub struct DistanceMatrixRequest {
     pub origin: String,
     pub destination: String,
+    pub api_key: String,
 }
