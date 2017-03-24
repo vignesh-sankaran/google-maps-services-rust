@@ -7,19 +7,21 @@ is leaking a private type.  */
 #[derive(Deserialize)]
 pub struct DistanceMatrixDistanceUnit {
     // Distance in metres
-    pub distance: f32,
+    pub value: f32,
     pub text: String,
 }
 
 #[derive(Deserialize)]
 pub struct DistanceMatrixDurationUnit {
     // Duration in seconds
-    pub value: Duration,
+    pub value: f32,
     pub text: String,
 }
 
 #[derive(Deserialize)]
 pub struct DistanceMatrixRowObject {
+    distance: DistanceMatrixDistanceUnit,
+    duration: DistanceMatrixDurationUnit,
     status: String,
 }
 
