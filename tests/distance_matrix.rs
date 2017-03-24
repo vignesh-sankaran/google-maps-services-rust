@@ -1,9 +1,9 @@
-extern crate google_web_services;
+extern crate google_maps_services;
 extern crate dotenv;
 
 use dotenv::dotenv;
-use google_web_services::structs::LatLng;
-use google_web_services::distance_matrix::distance_matrix_request;
+use google_maps_services::structs::LatLng;
+use google_maps_services::distance_matrix::distance_matrix_request;
 use std::env;
 
 #[test]

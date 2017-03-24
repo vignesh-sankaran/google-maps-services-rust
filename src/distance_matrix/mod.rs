@@ -6,25 +6,34 @@ use self::request::DistanceMatrixRequest;
 use self::response::DistanceMatrixResponse;
 use std::io::Read;
 use hyper;
+use hyper::Client;
+use hyper::net::HttpsConnector;
+use hyper_native_tls::NativeTlsClient;
 use serde_urlencoded;
 use serde_json;
 
 // Default use JSON
-const URL_EXTENSION: &'static str = "distancematrix/json?";
+const URL_EXTENSION: &'static str = "distancematrix/json";
 
 pub fn distance_matrix_request(api_key: String, origin: LatLng, destination: LatLng) -> DistanceMatrixResponse {
     let request = DistanceMatrixRequest {
-        origin: origin.to_string(),
-        destination: destination.to_string(),
+        origins: origin.to_string(),
+        destinations: destination.to_string(),
         api_key: api_key,
     };
 
     // Safe to unwrap since external code that doesn't pass in any values will not compile
     let request_params_encoded = serde_urlencoded::to_string(&request).unwrap();
+    println!("{}", request.origins);
+    println!("{}", request_params_encoded);
     let request_url = super::BASE_URL.to_string() + URL_EXTENSION + "?" + request_params_encoded.as_str();
-    
+    println!("{}", request_url);
     let processed_url = hyper::Url::parse(&request_url).unwrap();
-    let client = hyper::Client::new();
+    
+    let ssl = NativeTlsClient::new().unwrap();
+    let ssl_connector = HttpsConnector::new(ssl);
+    let client = Client::with_connector(ssl_connector);
+
     let mut response = client.get(processed_url).send().unwrap();
     let mut response_string = String::new();
     {

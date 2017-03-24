@@ -1,4 +1,3 @@
-use serde_derive;
 use std::time::Duration;
 
 /* All structs here have to be public because
@@ -8,8 +7,8 @@ is leaking a private type.  */
 #[derive(Deserialize)]
 pub struct DistanceMatrixDistanceUnit {
     // Distance in metres
-    pub value: String,
-    pub text: u32,
+    pub distance: f32,
+    pub text: String,
 }
 
 #[derive(Deserialize)]
@@ -21,14 +20,18 @@ pub struct DistanceMatrixDurationUnit {
 
 #[derive(Deserialize)]
 pub struct DistanceMatrixRowObject {
-    pub distance: DistanceMatrixDistanceUnit,
-    pub duration: DistanceMatrixDurationUnit,
+    status: String,
+}
+
+#[derive(Deserialize)]
+pub struct Row {
+    pub elements: Vec<DistanceMatrixRowObject>,
 }
 
 #[derive(Deserialize)]
 pub struct DistanceMatrixResponse {
     pub origin_addresses: Vec<String>,
-    pub destination_address: Vec<String>,
-    pub rows: Vec<DistanceMatrixRowObject>,
+    pub destination_addresses: Vec<String>,
+    pub rows: Vec<Row>,
     pub status: String,
 }

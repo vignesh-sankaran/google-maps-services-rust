@@ -1,8 +1,6 @@
-use serde_derive;
-
 #[derive(Serialize)]
 pub struct DistanceMatrixRequest {
-    pub origin: String,
-    pub destination: String,
+    pub origins: String,
+    pub destinations: String,
     pub api_key: String,
 }

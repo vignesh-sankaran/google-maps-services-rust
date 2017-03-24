@@ -9,6 +9,7 @@ dotenv = "0.8.*"
 
 [dependencies]
 hyper = "0.10.*"
+hyper-native-tls = "0.2.*"
 serde = "0.9.*"
 serde_derive = "0.9.*"
 serde_json = "0.9.*"

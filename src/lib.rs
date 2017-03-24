@@ -1,8 +1,8 @@
 extern crate hyper;
+extern crate hyper_native_tls;
 extern crate serde_urlencoded;
 #[macro_use]
 extern crate serde_derive;
-#[macro_use]
 extern crate serde_json;
 
 pub mod distance_matrix;
