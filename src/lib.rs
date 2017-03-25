@@ -1,6 +1,7 @@
 extern crate hyper;
 extern crate hyper_native_tls;
 extern crate serde_urlencoded;
+extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 extern crate serde_json;

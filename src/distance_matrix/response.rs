@@ -1,4 +1,5 @@
 use std::time::Duration;
+use super::duration_seconds;
 
 /* All structs here have to be public because
 the Rust compiler will complain that DistanceMatrixResponse
@@ -14,7 +15,8 @@ pub struct DistanceMatrixDistanceUnit {
 #[derive(Deserialize)]
 pub struct DistanceMatrixDurationUnit {
     // Duration in seconds
-    pub value: f32,
+    #[serde(with = "duration_seconds")]
+    pub value: Duration,
     pub text: String,
 }
 

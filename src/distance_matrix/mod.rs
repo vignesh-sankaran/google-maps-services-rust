@@ -1,5 +1,10 @@
 mod request;
 mod response;
+/*
+    Using this mod file means this is the only place I can
+    declare all other modules needed i.e. I can't nest modules
+*/
+mod duration_seconds;
 
 use super::structs::LatLng;
 use self::request::DistanceMatrixRequest;
