@@ -21,7 +21,7 @@ fn lat_lng() {
 
     let result = lat_lng_request(api_key, origin, destination);
 
-    assert_eq!(result.destination_addresses.len(), 1);
+    assert_eq!(result.status, "OK");
 }
 
 #[test]
@@ -29,10 +29,10 @@ fn address() {
     dotenv().ok();
     let api_key = env::var("API_KEY").expect("API_KEY must be set in the .env file");
 
-    let origin = "Melbourne GPO";
-    let destination = "Ballarat CBD";
+    let origin = "Melbourne GPO".to_string();
+    let destination = "Ballarat CBD".to_string();
 
-    let result = address_request(api_key, origin.to_string(), destination.to_string());
+    let result = address_request(api_key, origin, destination);
 
-    assert_eq!(result.destination_addresses.len(), 1);
+    assert_eq!(result.status, "OK");
 }
