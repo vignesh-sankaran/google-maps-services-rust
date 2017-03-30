@@ -20,19 +20,11 @@ use serde_json;
 // Default use JSON
 const URL_EXTENSION: &'static str = "distancematrix/json";
 
-pub fn distance_matrix_request(api_key: String, origin: LatLng, destination: LatLng) -> DistanceMatrixResponse {
-    let request = DistanceMatrixRequest {
-        origins: origin.to_string(),
-        destinations: destination.to_string(),
-        api_key: api_key,
-    };
-
+// This is probably not thread safe but we'll worry about that later
+fn request(request_data: DistanceMatrixRequest) -> DistanceMatrixResponse {
     // Safe to unwrap since external code that doesn't pass in any values will not compile
-    let request_params_encoded = serde_urlencoded::to_string(&request).unwrap();
-    println!("{}", request.origins);
-    println!("{}", request_params_encoded);
+    let request_params_encoded = serde_urlencoded::to_string(&request_data).unwrap();
     let request_url = super::BASE_URL.to_string() + URL_EXTENSION + "?" + request_params_encoded.as_str();
-    println!("{}", request_url);
     let processed_url = hyper::Url::parse(&request_url).unwrap();
     
     let ssl = NativeTlsClient::new().unwrap();
@@ -47,4 +39,24 @@ pub fn distance_matrix_request(api_key: String, origin: LatLng, destination: Lat
     let distance_matrix_response: DistanceMatrixResponse = serde_json::from_str(&response_string).unwrap();
 
     distance_matrix_response
+}
+
+pub fn lat_lng_request(api_key: String, origin: LatLng, destination: LatLng) -> DistanceMatrixResponse {
+    let request_data = DistanceMatrixRequest {
+        origins: origin.to_string(),
+        destinations: destination.to_string(),
+        api_key: api_key,
+    };
+
+    request(request_data)
+}
+
+pub fn address_request(api_key: String, origin: String, destination: String) -> DistanceMatrixResponse {
+    let request_data = DistanceMatrixRequest {
+        origins: origin,
+        destinations: destination,
+        api_key: api_key,
+    };
+
+    request(request_data)
 }

@@ -3,11 +3,12 @@ extern crate dotenv;
 
 use dotenv::dotenv;
 use google_maps_services::structs::LatLng;
-use google_maps_services::distance_matrix::distance_matrix_request;
+use google_maps_services::distance_matrix::lat_lng_request;
+use google_maps_services::distance_matrix::address_request;
 use std::env;
 
 #[test]
-fn test_distance_matrix() {
+fn lat_lng() {
     // Get API key from .env file
     dotenv().ok();
     let api_key = env::var("API_KEY").expect("API_KEY must be set in the .env file");
@@ -18,8 +19,20 @@ fn test_distance_matrix() {
     // Ballarat CBD
     let destination = LatLng::new(-37.5674314, 143.7827008);
 
-    let _ = distance_matrix_request(api_key, origin, destination);
+    let result = lat_lng_request(api_key, origin, destination);
 
-    // Why isn't this working? :(
-    assert!(true);
+    assert_eq!(result.destination_addresses.len(), 1);
+}
+
+#[test]
+fn address() {
+    dotenv().ok();
+    let api_key = env::var("API_KEY").expect("API_KEY must be set in the .env file");
+
+    let origin = "Melbourne GPO";
+    let destination = "Ballarat CBD";
+
+    let result = address_request(api_key, origin.to_string(), destination.to_string());
+
+    assert_eq!(result.destination_addresses.len(), 1);
 }
