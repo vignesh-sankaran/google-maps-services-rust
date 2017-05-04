@@ -6,7 +6,7 @@ mod response;
 */
 mod duration_seconds;
 
-use super::structs::LatLng;
+use super::request_structs::LatLng;
 use self::request::DistanceMatrixRequest;
 use self::response::DistanceMatrixResponse;
 use std::io::Read;

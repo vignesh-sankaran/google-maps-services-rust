@@ -2,7 +2,7 @@ extern crate google_maps_services;
 extern crate dotenv;
 
 use dotenv::dotenv;
-use google_maps_services::structs::LatLng;
+use google_maps_services::request_structs::LatLng;
 use google_maps_services::distance_matrix::lat_lng_request;
 use google_maps_services::distance_matrix::address_request;
 use std::env;

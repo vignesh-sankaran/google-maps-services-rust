@@ -16,5 +16,5 @@ I do plan to build the other web services endpoints in depending on demand. Once
 ## Current status
 Distance Matrix is being currently being built. It currently accepts a single origin and destination in a LatLong format, and returns a DistanceMatrixResponse struct. The next things to be worked on, in order are:
 
-* Optional fields in a Distance Matrix request
-* Multiple origins and destinations
+* Optional fields in a Distance Matrix request: currently working on travel mode
+* Multiple origins and destinations in Distance Matrix

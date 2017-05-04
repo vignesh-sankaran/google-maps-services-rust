@@ -10,4 +10,4 @@ Cargo.lock
 .vscode/**
 
 # Env file containing API key
-src/.env
+.env

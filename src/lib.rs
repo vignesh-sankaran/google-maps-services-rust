@@ -7,6 +7,6 @@ extern crate serde_derive;
 extern crate serde_json;
 
 pub mod distance_matrix;
-pub mod structs;
+pub mod request_structs;
 
 const BASE_URL: &'static str = "https://maps.googleapis.com/maps/api/";
