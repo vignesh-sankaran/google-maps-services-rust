@@ -25,7 +25,7 @@ fn lat_lng() {
 }
 
 #[test]
-fn address() {
+fn address_minimum() {
     dotenv().ok();
     let api_key = env::var("API_KEY").expect("API_KEY must be set in the .env file");
 
@@ -35,4 +35,10 @@ fn address() {
     let result = address_request(api_key, origin, destination);
 
     assert_eq!(result.status, "OK");
+}
+
+#[test]
+fn address_travel_mode() {
+    dotenv().ok();
+    unimplemented!();
 }

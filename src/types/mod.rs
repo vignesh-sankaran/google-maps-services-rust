@@ -1,4 +1,5 @@
-enum TravelMode {
+#[derive(Serialize)]
+pub enum TravelMode {
     Driving,
     Walking,
     Bicycling,

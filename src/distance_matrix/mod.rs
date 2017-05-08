@@ -1,12 +1,5 @@
-mod request;
-mod response;
-/*
-    Using this mod file means this is the only place I can
-    declare all other modules needed i.e. I can't nest modules
-*/
-mod duration_seconds;
-
 use super::request_structs::LatLng;
+use super::types::TravelMode;
 use self::request::DistanceMatrixRequest;
 use self::response::DistanceMatrixResponse;
 use std::io::Read;
@@ -16,6 +9,14 @@ use hyper::net::HttpsConnector;
 use hyper_native_tls::NativeTlsClient;
 use serde_urlencoded;
 use serde_json;
+
+mod request;
+mod response;
+/*
+    Using this mod file means this is the only place I can
+    declare all other modules needed i.e. I can't nest modules
+*/
+mod duration_seconds;
 
 // Default use JSON
 const URL_EXTENSION: &'static str = "distancematrix/json";
@@ -46,6 +47,7 @@ pub fn lat_lng_request(api_key: String, origin: LatLng, destination: LatLng) -> 
         origins: origin.to_string(),
         destinations: destination.to_string(),
         api_key: api_key,
+        travel_mode: None,
     };
 
     request(request_data)
@@ -56,6 +58,7 @@ pub fn address_request(api_key: String, origin: String, destination: String) -> 
         origins: origin,
         destinations: destination,
         api_key: api_key,
+        travel_mode: None,
     };
 
     request(request_data)
