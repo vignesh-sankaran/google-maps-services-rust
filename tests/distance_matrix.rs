@@ -2,6 +2,7 @@ extern crate google_maps_services;
 extern crate dotenv;
 
 use dotenv::dotenv;
+use google_maps_services::distance_matrix::DistanceMatrixRequest;
 use google_maps_services::request_structs::LatLng;
 use google_maps_services::types::TravelMode;
 use std::env;
@@ -14,7 +15,7 @@ fn address_minimum() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let request = request::new(origin, destination, api_key);
+    let request = DistanceMatrixRequest::new(origin, destination, api_key);
 
     let result = request.send();
 
@@ -30,8 +31,10 @@ fn address_travel_mode() {
     let destination = "Ballarat CBD".to_string();
     let travel_mode = TravelMode::Transit;
 
-    let request = request::new(origin, destination, api_key);
-    request.set_travel_mode(travel_mode);
+    let mut request = DistanceMatrixRequest::new(origin, destination, api_key);
+    {
+        request.set_travel_mode(travel_mode);
+    }
 
     let result = request.send();
 

@@ -24,14 +24,16 @@ pub struct DistanceMatrixRequest {
 }
 
 impl DistanceMatrixRequest {
-    pub fn new(self, origins: String, destinations: String, api_key: String) {
-        self.origins = origins;
-        self.destinations = destinations;
-        self.api_key = api_key;
-        self.travel_mode = None;
+    pub fn new(origins: String, destinations: String, api_key: String) -> DistanceMatrixRequest {
+        DistanceMatrixRequest {
+            origins: origins,
+            destinations: destinations,
+            api_key: api_key,
+            travel_mode: None,
+        }
     }
 
-    pub fn set_travel_mode(self, travel_mode: TravelMode) {
+    pub fn set_travel_mode(&mut self, travel_mode: TravelMode) {
         self.travel_mode = Some(travel_mode);
     }
 
