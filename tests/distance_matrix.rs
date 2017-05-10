@@ -32,6 +32,7 @@ fn address_travel_mode() {
     let travel_mode = TravelMode::Transit;
 
     let mut request = DistanceMatrixRequest::new(origin, destination, api_key);
+    // Is there a better way to do this? This'd be a hack for someone using this...
     {
         request.set_travel_mode(travel_mode);
     }
