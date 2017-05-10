@@ -15,6 +15,8 @@ mod duration_seconds;
 // Default use JSON
 const URL_EXTENSION: &'static str = "distancematrix/json";
 
+/* Note: If a struct value is of None type, it is not appended to
+ the generated URL */
 #[derive(Serialize)]
 pub struct DistanceMatrixRequest {
     origins: String,
