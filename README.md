@@ -11,7 +11,7 @@ The aim is to have a production grade API binding library with integration tests
 In the order of priority, the upcoming planned functionality is:
 * Distance Matrix
 
-I do plan to build the other web services endpoints in depending on demand. Once the above is/are done I may put up a survey to establish interest in the future functionality of this library.
+I do plan to build the other web services endpoints depending on demand. Once the above is/are done I may put up a survey to establish interest in the future functionality of this library.
 
 ### Pathway to 0.0.1
 There are a few things I feel need to be implemented before putting this up on crates.io. Those things are as follows:
