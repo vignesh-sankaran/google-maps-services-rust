@@ -15,8 +15,8 @@ I do plan to build the other web services endpoints in depending on demand. Once
 
 ### Pathway to 0.0.1
 There are a few things I feel need to be implemented before putting this up on crates.io. Those things are as follows:
-- [] Error handling from API
-- [] Documentation with working examples
+- [ ] Error handling from API
+- [ ] Documentation with working examples
 
 ## Current status
 Distance Matrix is being currently being built. It currently accepts a single origin and destination in a LatLong format, and returns a DistanceMatrixResponse struct. The next things to be worked on, in order are:
