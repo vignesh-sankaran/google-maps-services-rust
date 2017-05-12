@@ -9,3 +9,13 @@ pub enum TravelMode {
     #[serde(rename = "transit")]
     Transit,
 }
+
+#[derive(Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TransitMode {
+    Bus,
+    Subway,
+    Train,
+    Tram,
+    Rail,
+}

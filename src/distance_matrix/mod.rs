@@ -1,5 +1,10 @@
+mod error;
+mod response;
+mod duration_seconds;
+
 use super::request_structs::LatLng;
 use super::types::TravelMode;
+use super::types::TransitMode;
 use self::response::DistanceMatrixResponse;
 use std::io::Read;
 use hyper;
@@ -8,9 +13,6 @@ use hyper::net::HttpsConnector;
 use hyper_native_tls::NativeTlsClient;
 use serde_urlencoded;
 use serde_json;
-
-mod response;
-mod duration_seconds;
 
 // Default use JSON
 const URL_EXTENSION: &'static str = "distancematrix/json";
@@ -23,6 +25,7 @@ pub struct DistanceMatrixRequest {
     destinations: String,
     api_key: String,
     travel_mode: Option<TravelMode>,
+    transit_mode: Option<TransitMode>,
 }
 
 impl DistanceMatrixRequest {
@@ -32,11 +35,20 @@ impl DistanceMatrixRequest {
             destinations: destinations,
             api_key: api_key,
             travel_mode: None,
+            transit_mode: None,
         }
     }
 
     pub fn set_travel_mode(&mut self, travel_mode: TravelMode) {
         self.travel_mode = Some(travel_mode);
+    }
+
+    pub fn set_transit_mode(&mut self, transit_mode: TransitMode) -> Result<(), error::IncompatibleTravelModeError> {
+        match self.travel_mode {
+            Some(TravelMode::Transit) => Ok(self.transit_mode = Some(transit_mode)),
+            Some(_) => Err(error::IncompatibleTravelModeError::WrongTravelModeError),
+            None => Err(error::IncompatibleTravelModeError::NoTravelModeError),
+        }
     }
 
     // This is probably not thread safe but we'll worry about that later
