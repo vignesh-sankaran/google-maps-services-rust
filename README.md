@@ -9,7 +9,7 @@ The aim is to have a production grade API binding library with integration tests
 
 ## Roadmap
 In the order of priority, the upcoming planned functionality is:
-    * Distance Matrix
+* Distance Matrix
 
 I do plan to build the other web services endpoints in depending on demand. Once the above 2 are done I may put up a survey to establish interest in the future functionality of this library.
 
