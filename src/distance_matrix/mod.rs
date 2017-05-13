@@ -1,4 +1,4 @@
-mod error;
+pub mod error;
 mod response;
 mod duration_seconds;
 
@@ -46,8 +46,8 @@ impl DistanceMatrixRequest {
     pub fn set_transit_mode(&mut self, transit_mode: TransitMode) -> Result<(), error::IncompatibleTravelModeError> {
         match self.travel_mode {
             Some(TravelMode::Transit) => Ok(self.transit_mode = Some(transit_mode)),
-            Some(_) => Err(error::IncompatibleTravelModeError::WrongTravelModeError),
-            None => Err(error::IncompatibleTravelModeError::NoTravelModeError),
+            Some(_) => Err(error::IncompatibleTravelModeError),
+            None => Err(error::IncompatibleTravelModeError),
         }
     }
 

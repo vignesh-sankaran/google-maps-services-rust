@@ -3,7 +3,6 @@ extern crate dotenv;
 
 use dotenv::dotenv;
 use google_maps_services::distance_matrix::DistanceMatrixRequest;
-use google_maps_services::request_structs::LatLng;
 use google_maps_services::types::TravelMode;
 use google_maps_services::types::TransitMode;
 use std::env;
@@ -77,5 +76,5 @@ fn address_transit_mode_fail() {
         request.set_travel_mode(TravelMode::Bicycling);
     }
 
-    let result = request.set_transit_mode(TransitMode::Rail).unwrap();
+    let _ = request.set_transit_mode(TransitMode::Rail).unwrap();
 }
