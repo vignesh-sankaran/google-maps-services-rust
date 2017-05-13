@@ -22,9 +22,9 @@ pub struct DistanceMatrixDurationUnit {
 
 #[derive(Deserialize)]
 pub struct DistanceMatrixRowObject {
-    distance: DistanceMatrixDistanceUnit,
-    duration: DistanceMatrixDurationUnit,
-    status: String,
+    pub distance: DistanceMatrixDistanceUnit,
+    pub duration: DistanceMatrixDurationUnit,
+    pub status: String,
 }
 
 #[derive(Deserialize)]

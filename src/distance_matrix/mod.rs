@@ -2,7 +2,6 @@ pub mod error;
 mod response;
 mod duration_seconds;
 
-use super::request_structs::LatLng;
 use super::types::TravelMode;
 use super::types::TransitMode;
 use self::response::DistanceMatrixResponse;
@@ -19,6 +18,7 @@ const URL_EXTENSION: &'static str = "distancematrix/json";
 
 /* Note: If a struct value is of None type, it is not appended to
  the generated URL */
+ /// A struct for creating and sending distance matrix requests
 #[derive(Serialize)]
 pub struct DistanceMatrixRequest {
     origins: String,
@@ -29,6 +29,7 @@ pub struct DistanceMatrixRequest {
 }
 
 impl DistanceMatrixRequest {
+    /// Creates a new distance matrix request from the mandatory fields
     pub fn new(origins: String, destinations: String, api_key: String) -> DistanceMatrixRequest {
         DistanceMatrixRequest {
             origins: origins,
@@ -39,10 +40,12 @@ impl DistanceMatrixRequest {
         }
     }
 
+    /// Set the travel mode. Default mode is driving
     pub fn set_travel_mode(&mut self, travel_mode: TravelMode) {
         self.travel_mode = Some(travel_mode);
     }
 
+    /// Set the transit mode. `TravelMode` must be set to `Transit` for `TransitMode` to be set
     pub fn set_transit_mode(&mut self, transit_mode: TransitMode) -> Result<(), error::IncompatibleTravelModeError> {
         match self.travel_mode {
             Some(TravelMode::Transit) => Ok(self.transit_mode = Some(transit_mode)),
@@ -51,7 +54,8 @@ impl DistanceMatrixRequest {
         }
     }
 
-    // This is probably not thread safe but we'll worry about that later
+    /// Send a `DistanceMatrixRequest`. Response is currently not case analysed for possible errors
+    /// This function is probably also not thread safe
     pub fn send(self) -> DistanceMatrixResponse {
         // Safe to unwrap since external code that doesn't pass in any values will not compile
         let request_params_encoded = serde_urlencoded::to_string(&self).unwrap();
