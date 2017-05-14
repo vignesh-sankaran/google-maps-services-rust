@@ -32,6 +32,7 @@ pub struct Row {
     pub elements: Vec<DistanceMatrixRowObject>,
 }
 
+/// Struct for storing a successful response for a `DistanceMatrixRequest`
 #[derive(Deserialize)]
 pub struct DistanceMatrixResponse {
     pub origin_addresses: Vec<String>,

@@ -3,6 +3,7 @@ extern crate dotenv;
 
 use dotenv::dotenv;
 use google_maps_services::distance_matrix::DistanceMatrixRequest;
+use google_maps_services::distance_matrix::DistanceMatrixRequestBuilder;
 use google_maps_services::types::TravelMode;
 use google_maps_services::types::TransitMode;
 use std::env;
@@ -15,7 +16,8 @@ fn address_minimum() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let request = DistanceMatrixRequest::new(origin, destination, api_key);
+    let request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+                    .create();
 
     let result = request.send();
 
@@ -29,13 +31,10 @@ fn address_travel_mode() {
 
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
-    let travel_mode = TravelMode::Transit;
 
-    let mut request = DistanceMatrixRequest::new(origin, destination, api_key);
-    // Is there a better way to do this? This'd be a hack for someone using this...
-    {
-        request.set_travel_mode(travel_mode);
-    }
+    let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+                        .set_travel_mode(TravelMode::Transit)
+                        .create();
 
     let result = request.send();
 
@@ -50,12 +49,10 @@ fn address_transit_mode_success() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let mut request = DistanceMatrixRequest::new(origin, destination, api_key);
-    {
-        request.set_travel_mode(TravelMode::Transit);
-    }
-
-    request.set_transit_mode(TransitMode::Rail).unwrap();
+    let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+                        .set_travel_mode(TravelMode::Transit)
+                        .set_transit_mode(TransitMode::Rail).unwrap()
+                        .create();
 
     let result = request.send();
 
@@ -71,10 +68,8 @@ fn address_transit_mode_fail() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let mut request = DistanceMatrixRequest::new(origin, destination, api_key);
-    {
-        request.set_travel_mode(TravelMode::Bicycling);
-    }
-
-    let _ = request.set_transit_mode(TransitMode::Rail).unwrap();
+    let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+                        .set_travel_mode(TravelMode::Transit)
+                        .set_transit_mode(TransitMode::Rail).unwrap()
+                        .create();
 }

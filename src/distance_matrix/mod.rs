@@ -18,7 +18,66 @@ const URL_EXTENSION: &'static str = "distancematrix/json";
 
 /* Note: If a struct value is of None type, it is not appended to
  the generated URL */
- /// A struct for creating and sending distance matrix requests
+
+pub struct DistanceMatrixRequestBuilder {
+    origins: String,
+    destinations: String,
+    api_key: String,
+    travel_mode: Option<TravelMode>,
+    transit_mode: Option<TransitMode>,
+}
+
+/// A builder to construct a `DistanceMatrixRequest`
+///
+/// Usage: Use `new()` to pass in the basic parameters, pass in optional parameters
+/// using the apporpriate setter function, then create a `DistanceMatrixRequest` from
+/// the given parameters with `create()`
+impl DistanceMatrixRequestBuilder {
+    /// Creates a new distance matrix request from the mandatory fields
+    pub fn new(origins: String, destinations: String, api_key: String) -> DistanceMatrixRequestBuilder {
+        DistanceMatrixRequestBuilder {
+            origins: origins,
+            destinations: destinations,
+            api_key: api_key,
+            travel_mode: None,
+            transit_mode: None,
+        }
+    }
+
+    /// Set the travel mode. Default mode is driving
+    pub fn set_travel_mode(&mut self, travel_mode: TravelMode) -> &mut DistanceMatrixRequestBuilder{
+        self.travel_mode = Some(travel_mode);
+        self
+    }
+
+    /// Set the transit mode
+    /// # Errors
+    /// This function will return an `IncompatibleTravelModeError` if the `TravelMode` is
+    /// other than `Transit` or set to `None`
+    pub fn set_transit_mode(&mut self, transit_mode: TransitMode) -> Result<&mut DistanceMatrixRequestBuilder, error::IncompatibleTravelModeError> {
+        match self.travel_mode {
+            Some(TravelMode::Transit) => {
+                self.transit_mode = Some(transit_mode);
+                Ok(self)
+            },
+            Some(_) => Err(error::IncompatibleTravelModeError),
+            None => Err(error::IncompatibleTravelModeError),
+        }
+    }
+
+    /// Returns a `DistanceMatrixRequest` with the values specified in the builder
+    pub fn create(self) -> DistanceMatrixRequest {
+        DistanceMatrixRequest {
+            origins: self.origins,
+            destinations: self.destinations,
+            api_key: self.api_key,
+            travel_mode: self.travel_mode,
+            transit_mode: self.transit_mode,
+        }
+    }
+}
+
+ /// A struct containing the parameters to make a Distance Matrix request
 #[derive(Serialize)]
 pub struct DistanceMatrixRequest {
     origins: String,
@@ -29,31 +88,6 @@ pub struct DistanceMatrixRequest {
 }
 
 impl DistanceMatrixRequest {
-    /// Creates a new distance matrix request from the mandatory fields
-    pub fn new(origins: String, destinations: String, api_key: String) -> DistanceMatrixRequest {
-        DistanceMatrixRequest {
-            origins: origins,
-            destinations: destinations,
-            api_key: api_key,
-            travel_mode: None,
-            transit_mode: None,
-        }
-    }
-
-    /// Set the travel mode. Default mode is driving
-    pub fn set_travel_mode(&mut self, travel_mode: TravelMode) {
-        self.travel_mode = Some(travel_mode);
-    }
-
-    /// Set the transit mode. `TravelMode` must be set to `Transit` for `TransitMode` to be set
-    pub fn set_transit_mode(&mut self, transit_mode: TransitMode) -> Result<(), error::IncompatibleTravelModeError> {
-        match self.travel_mode {
-            Some(TravelMode::Transit) => Ok(self.transit_mode = Some(transit_mode)),
-            Some(_) => Err(error::IncompatibleTravelModeError),
-            None => Err(error::IncompatibleTravelModeError),
-        }
-    }
-
     /// Send a `DistanceMatrixRequest`. Response is currently not case analysed for possible errors
     /// This function is probably also not thread safe
     pub fn send(self) -> DistanceMatrixResponse {
