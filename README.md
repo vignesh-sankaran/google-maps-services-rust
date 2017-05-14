@@ -2,6 +2,8 @@
 # google-maps-services-rust
 A Rust binding library for Google Maps Web Services. I can't find one that exists so I'm going to start building one myself. Pull requests are more than welcome.
 
+Fair warning to anyone using this crate, the API surface is unstable and will be subject to breaking changes prior to 1.0.0. I will research testing methods to forewarn of breaking changes in upcoming crate versions.
+
 Work in progress and in the pipeline for this project can be found [here](https://tree.taiga.io/project/backend_dev-google-web-services-rust/kanban "Kanban for google-web-services-rust")
 
 ## Project goals
