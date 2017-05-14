@@ -32,7 +32,7 @@ fn address_travel_mode() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+    let request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
                         .set_travel_mode(TravelMode::Transit)
                         .create();
 
@@ -51,7 +51,8 @@ fn address_transit_mode_success() {
 
     let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
                         .set_travel_mode(TravelMode::Transit)
-                        .set_transit_mode(TransitMode::Rail).unwrap()
+                        .set_transit_mode(TransitMode::Rail)
+                        .unwrap()
                         .create();
 
     let result = request.send();
@@ -69,7 +70,7 @@ fn address_transit_mode_fail() {
     let destination = "Ballarat CBD".to_string();
 
     let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
-                        .set_travel_mode(TravelMode::Transit)
+                        .set_travel_mode(TravelMode::Bicycling)
                         .set_transit_mode(TransitMode::Rail).unwrap()
                         .create();
 }

@@ -1,4 +1,4 @@
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 pub enum TravelMode {
     #[serde(rename = "driving")]
     Driving,
@@ -10,7 +10,7 @@ pub enum TravelMode {
     Transit,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum TransitMode {
     Bus,

@@ -45,7 +45,7 @@ impl DistanceMatrixRequestBuilder {
     }
 
     /// Set the travel mode. Default mode is driving
-    pub fn set_travel_mode(&mut self, travel_mode: TravelMode) -> &mut DistanceMatrixRequestBuilder{
+    pub fn set_travel_mode(mut self, travel_mode: TravelMode) -> DistanceMatrixRequestBuilder{
         self.travel_mode = Some(travel_mode);
         self
     }
@@ -54,7 +54,7 @@ impl DistanceMatrixRequestBuilder {
     /// # Errors
     /// This function will return an `IncompatibleTravelModeError` if the `TravelMode` is
     /// other than `Transit` or set to `None`
-    pub fn set_transit_mode(&mut self, transit_mode: TransitMode) -> Result<&mut DistanceMatrixRequestBuilder, error::IncompatibleTravelModeError> {
+    pub fn set_transit_mode(mut self, transit_mode: TransitMode) -> Result<DistanceMatrixRequestBuilder, error::IncompatibleTravelModeError> {
         match self.travel_mode {
             Some(TravelMode::Transit) => {
                 self.transit_mode = Some(transit_mode);
