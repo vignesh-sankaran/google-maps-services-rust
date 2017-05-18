@@ -1,12 +1,9 @@
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum TravelMode {
-    #[serde(rename = "driving")]
     Driving,
-    #[serde(rename = "walking")]
     Walking,
-    #[serde(rename = "bicycling")]
     Bicycling,
-    #[serde(rename = "transit")]
     Transit,
 }
 

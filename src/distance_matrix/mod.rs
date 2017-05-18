@@ -1,3 +1,4 @@
+/// Errors related to `distance_matrix`
 pub mod error;
 mod response;
 mod duration_seconds;
@@ -19,6 +20,11 @@ const URL_EXTENSION: &'static str = "distancematrix/json";
 /* Note: If a struct value is of None type, it is not appended to
  the generated URL */
 
+/// A builder to construct a `DistanceMatrixRequest`
+///
+/// Usage: Use `new()` to pass in the basic parameters, pass in optional parameters
+/// using the apporpriate setter function, then create a `DistanceMatrixRequest` from
+/// the given parameters with `create()`
 pub struct DistanceMatrixRequestBuilder {
     origins: String,
     destinations: String,
@@ -27,11 +33,6 @@ pub struct DistanceMatrixRequestBuilder {
     transit_mode: Option<TransitMode>,
 }
 
-/// A builder to construct a `DistanceMatrixRequest`
-///
-/// Usage: Use `new()` to pass in the basic parameters, pass in optional parameters
-/// using the apporpriate setter function, then create a `DistanceMatrixRequest` from
-/// the given parameters with `create()`
 impl DistanceMatrixRequestBuilder {
     /// Creates a new distance matrix request from the mandatory fields
     pub fn new(origins: String, destinations: String, api_key: String) -> DistanceMatrixRequestBuilder {

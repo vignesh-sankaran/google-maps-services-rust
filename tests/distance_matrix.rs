@@ -2,7 +2,6 @@ extern crate google_maps_services;
 extern crate dotenv;
 
 use dotenv::dotenv;
-use google_maps_services::distance_matrix::DistanceMatrixRequest;
 use google_maps_services::distance_matrix::DistanceMatrixRequestBuilder;
 use google_maps_services::types::TravelMode;
 use google_maps_services::types::TransitMode;
@@ -49,7 +48,7 @@ fn address_transit_mode_success() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+    let request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
                         .set_travel_mode(TravelMode::Transit)
                         .set_transit_mode(TransitMode::Rail)
                         .unwrap()
@@ -69,7 +68,7 @@ fn address_transit_mode_fail() {
     let origin = "Melbourne GPO".to_string();
     let destination = "Ballarat CBD".to_string();
 
-    let mut request = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
+    let _ = DistanceMatrixRequestBuilder::new(origin, destination, api_key)
                         .set_travel_mode(TravelMode::Bicycling)
                         .set_transit_mode(TransitMode::Rail).unwrap()
                         .create();
