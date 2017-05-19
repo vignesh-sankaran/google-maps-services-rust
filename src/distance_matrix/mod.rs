@@ -1,5 +1,7 @@
 /// Errors related to `distance_matrix`
 pub mod error;
+/// Status of a `DistanceMatrixResponse`
+pub mod status;
 mod response;
 mod duration_seconds;
 

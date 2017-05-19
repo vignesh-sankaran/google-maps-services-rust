@@ -3,6 +3,7 @@ extern crate dotenv;
 
 use dotenv::dotenv;
 use google_maps_services::distance_matrix::DistanceMatrixRequestBuilder;
+use google_maps_services::distance_matrix::status::TopLevelStatus;
 use google_maps_services::types::TravelMode;
 use google_maps_services::types::TransitMode;
 use std::env;
@@ -20,7 +21,7 @@ fn address_minimum() {
 
     let result = request.send();
 
-    assert_eq!(result.status, "OK");
+    assert_eq!(result.status, TopLevelStatus::Ok);
 }
 
 #[test]
@@ -37,7 +38,7 @@ fn address_travel_mode() {
 
     let result = request.send();
 
-    assert_eq!(result.status, "OK");
+    assert_eq!(result.status, TopLevelStatus::Ok);
 }
 
 #[test]
@@ -56,7 +57,7 @@ fn address_transit_mode_success() {
 
     let result = request.send();
 
-    assert_eq!(result.status, "OK");
+    assert_eq!(result.status, TopLevelStatus::Ok);
 }
 
 #[test]

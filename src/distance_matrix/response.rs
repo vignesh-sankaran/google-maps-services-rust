@@ -1,18 +1,19 @@
 use std::time::Duration;
 use super::duration_seconds;
+use super::status;
 
 /* All structs here have to be public because
 the Rust compiler will complain that DistanceMatrixResponse
 is leaking a private type.  */
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct DistanceMatrixDistanceUnit {
     // Distance in metres
     pub value: f32,
     pub text: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct DistanceMatrixDurationUnit {
     // Duration in seconds
     #[serde(with = "duration_seconds")]
@@ -20,23 +21,23 @@ pub struct DistanceMatrixDurationUnit {
     pub text: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct DistanceMatrixRowObject {
     pub distance: DistanceMatrixDistanceUnit,
     pub duration: DistanceMatrixDurationUnit,
-    pub status: String,
+    pub status: status::ElementStatus,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct Row {
     pub elements: Vec<DistanceMatrixRowObject>,
 }
 
-/// Struct for storing a successful response for a `DistanceMatrixRequest`
-#[derive(Deserialize)]
+/// Struct for storing a response for a `DistanceMatrixRequest` struct
+#[derive(Debug, Deserialize)]
 pub struct DistanceMatrixResponse {
     pub origin_addresses: Vec<String>,
     pub destination_addresses: Vec<String>,
     pub rows: Vec<Row>,
-    pub status: String,
+    pub status: status::TopLevelStatus,
 }
