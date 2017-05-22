@@ -1,5 +1,6 @@
 # Google Maps Web Services - Rust bindings
 [![Build Status](https://travis-ci.org/vignesh-sankaran/google-maps-services-rust.svg?branch=master)](https://travis-ci.org/vignesh-sankaran/google-maps-services-rust)
+
 A Rust binding library for Google Maps Web Services. I can't find one that exists so I'm going to start building one myself. Pull requests are more than welcome.
 
 Fair warning to anyone using this crate, the API surface is unstable and will be subject to breaking changes prior to 1.0.0. I will research testing methods to forewarn of breaking changes in upcoming crate versions.
