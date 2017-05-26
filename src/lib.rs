@@ -13,8 +13,6 @@ extern crate serde_json;
 
 /// Distance Matrix request and response
 pub mod distance_matrix;
-/// Common structs related to making a request
-pub mod request_structs;
 /// Common library wide types
 pub mod types;
 
